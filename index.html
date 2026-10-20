@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#fff0f6">
+<title>SnapPop — Cute Photobooth</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="#"><span class="brand-icon">✿</span> SnapPop<span class="brand-dot">.</span></a>
+  <span class="top-note">little moments, big memories ♡</span>
+  <button id="galleryOpen" class="pill ghost">▧ Galeri <span id="savedCount">0</span></button>
+</header>
+<main>
+  <section class="intro">
+    <div class="eyebrow">✦ YOUR MINI PHOTO STUDIO ✦</div>
+    <h1>Make it <span>cute.</span><br>Make it <span>you!</span></h1>
+    <p>Foto-foto gemas, pilih frame, edit sesukamu, lalu simpan ✨</p>
+    <div class="sticker s1">♡</div><div class="sticker s2">✦</div>
+  </section>
+  <section class="studio">
+    <div class="studio-head"><div><span class="step">01</span><h2>Siap-siap dulu!</h2></div><span class="live-badge"><i></i> MINI STUDIO</span></div>
+    <div class="layout">
+      <div class="preview-wrap">
+        <div class="camera-stage" id="cameraStage">
+          <video id="video" autoplay playsinline muted></video>
+          <canvas id="photoCanvas" hidden></canvas>
+          <div id="placeholder" class="placeholder"><div class="camera-emoji">📸</div><strong>Camera time!</strong><span>Aktifkan kamera atau upload foto dari galeri.</span></div>
+          <div id="frameOverlay" class="frame-overlay frame-none"></div>
+          <div id="liveStamp" class="live-stamp">SNAPPOP ♡</div>
+          <div id="countdown" class="countdown" hidden>3</div>
+        </div>
+        <div class="camera-actions">
+          <button id="startCamera" class="btn primary">📷 Buka Kamera</button>
+          <button id="capture" class="btn dark" disabled>● Foto!</button>
+          <label class="btn soft upload-btn">▧ Upload Foto<input id="upload" type="file" accept="image/*" hidden></label>
+        </div>
+        <p id="cameraStatus" class="status">Tips: izinkan akses kamera saat browser memintanya.</p>
+      </div>
+      <aside class="controls">
+        <div class="control-block">
+          <div class="control-title"><span class="step">02</span><h3>Pilih frame</h3></div>
+          <div id="frames" class="frames">
+            <button class="frame-option selected" data-frame="frame-none"><span class="mini-frame plain">♡</span><b>No frame</b></button>
+            <button class="frame-option" data-frame="frame-pink"><span class="mini-frame pink">♡</span><b>Pink crush</b></button>
+            <button class="frame-option" data-frame="frame-daisy"><span class="mini-frame daisy">✿</span><b>Daisy day</b></button>
+            <button class="frame-option" data-frame="frame-y2k"><span class="mini-frame y2k">✦</span><b>Y2K star</b></button>
+            <button class="frame-option" data-frame="frame-film"><span class="mini-frame film">SNAP</span><b>Film strip</b></button>
+            <button class="frame-option" data-frame="frame-lavender"><span class="mini-frame lavender">☾</span><b>Lavender</b></button>
+            <button class="frame-option" data-frame="frame-hearts"><span class="mini-frame hearts">♥ ♥</span><b>Love note</b></button>
+            <button class="frame-option" data-frame="frame-check"><span class="mini-frame check">▦</span><b>Picnic</b></button>
+            <button class="frame-option" data-frame="frame-blue"><span class="mini-frame blue">✧</span><b>Baby blue</b></button>
+            <button class="frame-option" data-frame="frame-retro"><span class="mini-frame retro">1999</span><b>Retro cam</b></button>
+            <button class="frame-option" data-frame="frame-mint"><span class="mini-frame mint">❀</span><b>Minty</b></button>
+            <button class="frame-option" data-frame="frame-cloud"><span class="mini-frame cloud">☁</span><b>Cloud nine</b></button>
+          </div>
+        </div>
+        <div class="control-block">
+          <div class="control-title"><span class="step">03</span><h3>Atur look kamu</h3></div>
+          <label class="slider-label">Brightness <output id="brightOut">100%</output><input id="brightness" type="range" min="60" max="150" value="100"></label>
+          <label class="slider-label">Contrast <output id="contrastOut">100%</output><input id="contrast" type="range" min="60" max="150" value="100"></label>
+          <label class="slider-label">Saturation <output id="satOut">100%</output><input id="saturation" type="range" min="0" max="180" value="100"></label>
+          <div class="edit-buttons"><button id="filterWarm" class="chip">☀ Warm</button><button id="filterSoft" class="chip">☁ Soft</button><button id="filterBw" class="chip">◐ B&W</button><button id="resetEdit" class="chip">↺ Reset</button></div>
+        </div>
+      </aside>
+    </div>
+  </section>
+  <section class="result-section">
+    <div class="studio-head"><div><span class="step">04</span><h2>Hasil jepretanmu</h2></div><span class="result-caption">lookin' good already ✨</span></div>
+    <div class="result-layout">
+      <div class="result-card">
+        <div class="result-image" id="resultImage"><div class="empty-result"><span>🪄</span><b>Foto kamu bakal muncul di sini</b><small>Ambil foto atau upload dulu, ya!</small></div></div>
+        <div class="result-actions"><button id="retake" class="btn soft" disabled>↺ Foto lagi</button><button id="save" class="btn primary" disabled>↓ Simpan HD</button></div>
+      </div>
+      <div class="caption-card"><div class="sparkle">✧</div><h3>Keep this moment!</h3><p>Foto diproses di browser kamu. Pilih frame dan filter, lalu simpan hasilnya sebagai gambar PNG berkualitas tinggi.</p><div class="quality-note">♡ Tidak ada upload ke server<br>♡ Resolusi mengikuti foto sumber<br>♡ Bisa simpan hasil ke perangkat</div></div>
+    </div>
+  </section>
+  <footer>Made with ♡ and a little bit of sparkle <span>SNAPPOP © 2026</span></footer>
+</main>
+<div id="galleryModal" class="modal" hidden>
+ <div class="modal-card"><div class="modal-head"><div><span class="eyebrow">YOUR MEMORIES</span><h2>Galeri mini ♡</h2></div><button id="galleryClose" class="close">×</button></div>
+ <div id="galleryGrid" class="gallery-grid"><p class="gallery-empty">Belum ada foto tersimpan. Yuk, bikin kenangan! 📷</p></div>
+ <p class="gallery-hint">Galeri ini menyimpan foto selama halaman tetap terbuka. Unduh foto untuk menyimpannya permanen di perangkat.</p></div>
+</div>
+<script src="app.js"></script>
+</body></html>
